@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>💘 will you be my valentine? 💘</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+            padding: 1rem;
+        }
+        
+        /* Page 1 - Question */
+        .question-card {
+            max-width: 600px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 40px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            border: 4px solid white;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            color: #d43f6b;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 0 #ffe0e8;
+        }
+        
+        .subtitle {
+            font-size: 2rem;
+            color: #b83b5e;
+            margin-bottom: 2rem;
+            background: #ffe2ec;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            display: inline-block;
+        }
+        
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+            margin: 2.5rem 0;
+        }
+        
+        .btn {
+            border: none;
+            font-size: 2.2rem;
+            font-weight: bold;
+            padding: 1.2rem 2.8rem;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.2s;
+            min-width: 200px;
+            box-shadow: 0 8px 0 rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-yes {
+            background: #ff4d6d;
+            color: white;
+        }
+        
+        .btn-yes:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 11px 0 rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-yes:active {
+            transform: translateY(5px);
+            box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-no {
+            background: #f5b1b1;
+            color: #4d2f2f;
+        }
+        
+        .btn-no:hover {
+            transform: translateY(-3px);
+        }
+        
+        .btn-no:active {
+            transform: translateY(5px);
+        }
+        
+        /* Page 2 - Cat Celebration */
+        .cat-card {
+            max-width: 700px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 40px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            border: 4px solid white;
+            display: none;
+        }
+        
+        .cat-emoji {
+            font-size: 8rem;
+            animation: jump 0.8s infinite alternate ease-in-out;
+            display: inline-block;
+            margin: 1rem 0;
+        }
+        
+        @keyframes jump {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-30px) scale(1.1); }
+        }
+        
+        .success-message {
+            font-size: 2.2rem;
+            color: #b3435a;
+            margin: 1.5rem 0;
+            background: #ffe2ec;
+            padding: 1rem;
+            border-radius: 60px;
+        }
+        
+        /* Email Form - WORKS ON GITHUB PAGES */
+        .email-section {
+            background: #ffeef2;
+            border-radius: 30px;
+            padding: 2rem 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .email-title {
+            font-size: 1.8rem;
+            color: #c42e5c;
+            margin-bottom: 1.5rem;
+        }
+        
+        .email-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .form-input {
+            padding: 1.2rem;
+            font-size: 1.2rem;
+            border: 3px solid #ffb0b0;
+            border-radius: 60px;
+            outline: none;
+            width: 100%;
+        }
+        
+        .form-input:focus {
+            border-color: #ff4d6d;
+        }
+        
+        .send-btn {
+            background: #ff4d6d;
+            color: white;
+            border: none;
+            font-size: 1.8rem;
+            font-weight: bold;
+            padding: 1.2rem;
+            border-radius: 60px;
+            cursor: pointer;
+            box-shadow: 0 6px 0 #b32e4a;
+            transition: all 0.1s;
+        }
+        
+        .send-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #b32e4a;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 1.5rem;
+            color: #b14b62;
+            font-size: 1.3rem;
+            text-decoration: none;
+            border-bottom: 2px dotted #ffa5b5;
+            cursor: pointer;
+        }
+        
+        .funny-message {
+            font-size: 1.5rem;
+            color: #b13e55;
+            background: #ffe2e2;
+            border-radius: 60px;
+            padding: 1rem;
+            margin: 1rem 0;
+            display: none;
+        }
+        
+        /* Loading spinner */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #ffffff;
+            border-radius: 50%;
+            border-top-color: #ff4d6d;
+            animation: spin 1s ease-in-out infinite;
+            margin-left: 10px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Mobile responsive */
+        @media (max-width: 500px) {
+            h1 { font-size: 2.5rem; }
+            .subtitle { font-size: 1.5rem; }
+            .btn { font-size: 1.8rem; min-width: 150px; }
+            .cat-emoji { font-size: 6rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Page 1: Question -->
+    <div id="questionPage" class="question-card">
+        <h1>💝 VALENTINE'S DAY 💝</h1>
+        <div class="subtitle">one special question...</div>
+        
+        <div class="button-group">
+            <button class="btn btn-yes" id="yesBtn">YES 💕</button>
+            <button class="btn btn-no" id="noBtn">no 🥺</button>
+        </div>
+        
+        <div id="funnyMessage" class="funny-message"></div>
+        
+        <div style="font-size: 1.2rem; color: #a5485e; margin-top: 2rem;">
+            ✨ click YES for a surprise ✨
+        </div>
+    </div>
+    
+    <!-- Page 2: Cat Celebration -->
+    <div id="catPage" class="cat-card">
+        <div class="cat-emoji">😻🎉</div>
+        <div class="success-message">YAY! You said YES! 🎊</div>
+        
+        <!-- Email Section - USES FORMSPREE (FREE, WORKS ON GITHUB) -->
+        <div class="email-section">
+            <div class="email-title">📧 Send me your answer!</div>
+            
+            <form id="emailForm" class="email-form">
+                <!-- IMPORTANT: Replace this with your Formspree endpoint -->
+                <input type="hidden" name="_subject" value="💘 Someone said YES to be your Valentine!">
+                <input type="hidden" name="_replyto" value="notification@valentine.com">
+                <input type="hidden" name="_next" value="https://your-site.com/thanks.html">
+                
+                <input type="text" name="name" class="form-input" placeholder="Your name" required>
+                <input type="email" name="email" class="form-input" placeholder="Your email (optional)" id="emailInput">
+                <textarea name="message" class="form-input" style="border-radius: 30px; min-height: 100px;" placeholder="Leave a sweet message...">I want to be your Valentine! 💖</textarea>
+                
+                <button type="submit" class="send-btn" id="submitBtn">
+                    <span id="btnText">Send My Answer 💌</span>
+                    <span id="spinner" class="spinner" style="display: none;"></span>
+                </button>
+            </form>
+            
+            <div id="formStatus" style="margin-top: 1rem; color: #b34e63; font-size: 1.1rem;"></div>
+            <div style="font-size: 1rem; margin-top: 1rem; color: #7a4b56;">
+                💡 Your message will be sent to me instantly!
+            </div>
+        </div>
+        
+        <div class="back-link" id="backToQuestion">← go back</div>
+    </div>
+
+    <script>
+        (function() {
+            // Get elements
+            const questionPage = document.getElementById('questionPage');
+            const catPage = document.getElementById('catPage');
+            const yesBtn = document.getElementById('yesBtn');
+            const noBtn = document.getElementById('noBtn');
+            const funnyDiv = document.getElementById('funnyMessage');
+            const backLink = document.getElementById('backToQuestion');
+            const emailForm = document.getElementById('emailForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const spinner = document.getElementById('spinner');
+            const formStatus = document.getElementById('formStatus');
+            
+            // ===== IMPORTANT: REPLACE THIS WITH YOUR FORMSPREE ENDPOINT =====
+            // Get your free endpoint at: https://formspree.io/
+            const FORMSPREE_ENDPOINT = 'https://formspree.io/f/your-form-id-here'; // 🔴 YOU MUST CHANGE THIS
+            
+            // Show message when "Yes" is clicked
+            yesBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Switch to cat page
+                questionPage.style.display = 'none';
+                catPage.style.display = 'block';
+                
+                // Reset form
+                if (emailForm) emailForm.reset();
+                if (formStatus) formStatus.innerHTML = '';
+            });
+            
+            // Handle "No" button with funny messages
+            let noClickCount = 0;
+            const noMessages = [
+                "🙈 Are you sure? Try YES!",
+                "💔 My heart needs a YES!",
+                "😿 The cat is getting sad...",
+                "✨ Click YES for magic!",
+                "💝 Pretty please? Click YES!",
+                "🎀 The YES button is lonely!"
+            ];
+            
+            noBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                noClickCount++;
+                
+                if (noClickCount >= 4) {
+                    funnyDiv.innerHTML = "⭐ OK OK... but I KNOW you mean YES! ⭐";
+                    noClickCount = 0;
+                } else {
+                    funnyDiv.innerHTML = noMessages[Math.floor(Math.random() * noMessages.length)];
+                }
+                
+                funnyDiv.style.display = 'block';
+                
+                // Shake the no button
+                noBtn.style.transform = 'translateX(5px)';
+                setTimeout(() => noBtn.style.transform = '', 100);
+            });
+            
+            // Back link
+            backLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                catPage.style.display = 'none';
+                questionPage.style.display = 'block';
+                funnyDiv.style.display = 'none';
+                noClickCount = 0;
+                if (formStatus) formStatus.innerHTML = '';
+            });
+            
+            // Handle form submission
+            if (emailForm) {
+                emailForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    // Show loading state
+                    btnText.style.display = 'none';
+                    spinner.style.display = 'inline-block';
+                    submitBtn.disabled = true;
+                    formStatus.innerHTML = 'Sending your love... 💌';
+                    formStatus.style.color = '#b34e63';
+                    
+                    // Get form data
+                    const formData = new FormData(emailForm);
+                    
+                    try {
+                        // Send to Formspree
+                        const response = await fetch(FORMSPREE_ENDPOINT, {
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        });
+                        
+                        if (response.ok) {
+                            // Success!
+                            formStatus.innerHTML = '✅ Your answer was sent! I got your message! 💕';
+                            formStatus.style.color = '#28a745';
+                            emailForm.reset();
+                            
+                            // Optional: Show a cute message
+                            setTimeout(() => {
+                                if (confirm('Want to send another sweet message?')) {
+                                    // Clear status but keep form
+                                    formStatus.innerHTML = '';
+                                }
+                            }, 2000);
+                        } else {
+                            // Error
+                            const data = await response.json();
+                            throw new Error(data.error || 'Something went wrong');
+                        }
+                    } catch (error) {
+                        console.error('Form error:', error);
+                        formStatus.innerHTML = '❌ Oops! Could not send. Please try again or email me directly at your@email.com';
+                        formStatus.style.color = '#dc3545';
+                    } finally {
+                        // Reset button
+                        btnText.style.display = 'inline';
+                        spinner.style.display = 'none';
+                        submitBtn.disabled = false;
+                    }
+                });
+            }
+            
+            // IMPORTANT NOTE FOR USER
+            console.log('🔴 REMEMBER: You need to:');
+            console.log('1. Go to https://formspree.io/ and sign up (free)');
+            console.log('2. Create a new form and get your endpoint');
+            console.log('3. Replace FORMSPREE_ENDPOINT with your actual endpoint');
+            console.log('4. Also replace the email in the message below');
+        })();
+    </script>
+    
+    <!-- Instructions for setup -->
+    <div style="position: fixed; bottom: 10px; right: 10px; background: white; padding: 10px; border-radius: 10px; font-size: 12px; max-width: 250px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 1000;">
+        <strong>📋 Setup Instructions:</strong>
+        <ol style="margin-top: 5px; padding-left: 20px;">
+            <li>Go to <a href="https://formspree.io/" target="_blank">Formspree</a> (free)</li>
+            <li>Sign up and create a new form</li>
+            <li>Copy your form endpoint</li>
+            <li>Replace the FORMSPREE_ENDPOINT in the code</li>
+            <li>Upload to GitHub - it will work!</li>
+        </ol>
+    </div>
+</body>
+</html>
