@@ -5,302 +5,428 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>💘 will you be my valentine? 💘</title>
     <style>
+        /* modern reset + base */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
+            background: linear-gradient(145deg, #ffb6c1 0%, #ffc0cb 70%, #ffd1dc 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
-            padding: 1rem;
-        }
-        
-        /* Page 1 - Question */
-        .question-card {
-            max-width: 600px;
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            padding: 12px;
+            margin: 0;
+            position: relative;
             width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 40px;
-            padding: 2.5rem 2rem;
+        }
+
+        /* floating hearts background – pure css */
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .floating-hearts span {
+            position: absolute;
+            font-size: clamp(1.8rem, 8vw, 3rem);
+            opacity: 0.15;
+            user-select: none;
+            animation: floatAround 14s infinite linear;
+            color: #ff4d6d;
+        }
+
+        @keyframes floatAround {
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 0.2; }
+            100% { transform: translateY(-10vh) rotate(400deg); opacity: 0; }
+        }
+
+        /* main card – both pages share same look */
+        .card {
+            max-width: 680px;
+            width: 100%;
+            background: rgba(255, 250, 245, 0.96);
+            backdrop-filter: blur(8px);
+            border-radius: 48px 24px 48px 24px;
+            box-shadow: 0 25px 40px rgba(210, 70, 100, 0.3), 0 6px 16px rgba(0,0,0,0.08);
+            padding: 2.2rem 1.8rem 2.8rem;
             text-align: center;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-            border: 4px solid white;
+            border: 4px solid #ffffff;
+            position: relative;
+            z-index: 10;
+            transition: all 0.2s ease;
+            margin: 0 auto;
         }
-        
+
+        /* headings */
         h1 {
-            font-size: 3rem;
-            color: #d43f6b;
-            margin-bottom: 0.5rem;
-            text-shadow: 2px 2px 0 #ffe0e8;
+            font-size: clamp(2.4rem, 9vw, 3.8rem);
+            color: #b63e5c;
+            text-shadow: 3px 3px 0 #ffc1cf;
+            letter-spacing: -0.3px;
+            line-height: 1.2;
+            margin-bottom: 0.35rem;
+            word-break: break-word;
         }
-        
+
         .subtitle {
-            font-size: 2rem;
-            color: #b83b5e;
-            margin-bottom: 2rem;
-            background: #ffe2ec;
-            padding: 0.5rem 1.5rem;
-            border-radius: 50px;
+            font-size: clamp(1.5rem, 6vw, 2.3rem);
+            background: #ffdee9;
             display: inline-block;
+            padding: 0.7rem 2rem;
+            border-radius: 60px;
+            color: #a5334e;
+            margin: 1rem 0 1.8rem;
+            border: 2px solid #ffa5bc;
+            font-weight: 500;
+            width: auto;
+            max-width: 90%;
         }
-        
+
+        /* button group */
         .button-group {
             display: flex;
             flex-wrap: wrap;
-            gap: 1.5rem;
+            align-items: center;
             justify-content: center;
-            margin: 2.5rem 0;
+            gap: 1.2rem;
+            margin: 2rem 0 1.8rem;
+            width: 100%;
         }
-        
+
         .btn {
             border: none;
-            font-size: 2.2rem;
-            font-weight: bold;
-            padding: 1.2rem 2.8rem;
+            font-size: clamp(1.8rem, 7vw, 2.6rem);
+            font-weight: 700;
+            padding: 1rem 1.8rem;
             border-radius: 60px;
             cursor: pointer;
-            transition: all 0.2s;
-            min-width: 200px;
-            box-shadow: 0 8px 0 rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 0 #9e3b51, 0 8px 18px rgba(180, 60, 70, 0.4);
+            min-width: 160px;
+            flex: 0 1 auto;
+            background: #ff8a9f;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: 3px solid #fff0f0;
+            transition: all 0.08s linear;
+            line-height: 1.2;
+            touch-action: manipulation;
         }
-        
+
         .btn-yes {
             background: #ff4d6d;
-            color: white;
+            box-shadow: 0 8px 0 #b32e4a, 0 8px 20px #ff8095;
         }
-        
-        .btn-yes:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 11px 0 rgba(0, 0, 0, 0.2);
-        }
-        
+
         .btn-yes:active {
             transform: translateY(5px);
-            box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2);
+            box-shadow: 0 3px 0 #b32e4a, 0 8px 20px #ff8095;
         }
-        
+
         .btn-no {
-            background: #f5b1b1;
-            color: #4d2f2f;
+            background: #f5bcbc;
+            color: #4a2e2e;
+            box-shadow: 0 8px 0 #9d6872, 0 8px 18px #dba5a5;
         }
-        
-        .btn-no:hover {
-            transform: translateY(-3px);
-        }
-        
+
         .btn-no:active {
             transform: translateY(5px);
+            box-shadow: 0 3px 0 #9d6872, 0 8px 18px #dba5a5;
         }
-        
-        /* Page 2 - Cat Celebration */
-        .cat-card {
-            max-width: 700px;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 40px;
-            padding: 2.5rem 2rem;
-            text-align: center;
-            border: 4px solid white;
+
+        /* playful message after "no" */
+        .funny-message {
+            font-size: clamp(1.4rem, 5vw, 1.9rem);
+            color: #b13e55;
+            background: #ffe8ec;
+            border-radius: 60px;
+            padding: 1rem 1.5rem;
+            margin: 1.8rem 0 1.2rem;
             display: none;
-        }
-        
-        .cat-emoji {
-            font-size: 8rem;
-            animation: jump 0.8s infinite alternate ease-in-out;
-            display: inline-block;
-            margin: 1rem 0;
-        }
-        
-        @keyframes jump {
-            0% { transform: translateY(0) scale(1); }
-            100% { transform: translateY(-30px) scale(1.1); }
-        }
-        
-        .success-message {
-            font-size: 2.2rem;
-            color: #b3435a;
-            margin: 1.5rem 0;
-            background: #ffe2ec;
-            padding: 1rem;
-            border-radius: 60px;
-        }
-        
-        /* Email Form - WORKS ON GITHUB PAGES */
-        .email-section {
-            background: #ffeef2;
-            border-radius: 30px;
-            padding: 2rem 1.5rem;
-            margin: 2rem 0;
-        }
-        
-        .email-title {
-            font-size: 1.8rem;
-            color: #c42e5c;
-            margin-bottom: 1.5rem;
-        }
-        
-        .email-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-        
-        .form-input {
-            padding: 1.2rem;
-            font-size: 1.2rem;
-            border: 3px solid #ffb0b0;
-            border-radius: 60px;
-            outline: none;
+            border: 2px solid #ff98b0;
             width: 100%;
         }
-        
-        .form-input:focus {
-            border-color: #ff4d6d;
-        }
-        
-        .send-btn {
-            background: #ff4d6d;
-            color: white;
-            border: none;
-            font-size: 1.8rem;
-            font-weight: bold;
-            padding: 1.2rem;
+
+        .foot-note {
+            font-size: clamp(1rem, 4vw, 1.3rem);
+            color: #a7425b;
+            background: #ffeaee;
+            padding: 0.7rem 1.5rem;
             border-radius: 60px;
-            cursor: pointer;
-            box-shadow: 0 6px 0 #b32e4a;
-            transition: all 0.1s;
+            display: inline-block;
+            margin-top: 1.2rem;
+            border: 1px solid #ffa7b5;
         }
-        
-        .send-btn:active {
-            transform: translateY(4px);
-            box-shadow: 0 2px 0 #b32e4a;
+
+        /* ---------- THANK YOU PAGE (cat celebration) ---------- */
+        .thankyou-card {
+            background: rgba(255, 250, 250, 0.97);
+            border-radius: 48px 24px 48px 24px;
+            padding: 2.5rem 1.8rem 3rem;
+            border: 4px solid white;
+            max-width: 700px;
         }
-        
+
+        .cat-jump {
+            font-size: clamp(5rem, 20vw, 9rem);
+            line-height: 1;
+            animation: bounce 0.7s infinite alternate ease;
+            display: inline-block;
+            margin: 0.5rem 0 1rem;
+            filter: drop-shadow(0 16px 16px #ff98aa);
+        }
+
+        @keyframes bounce {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-28px) scale(1.1); }
+        }
+
+        .thankyou-title {
+            font-size: clamp(2.5rem, 9vw, 4rem);
+            color: #c43a60;
+            text-shadow: 3px 3px 0 #ffc0cf;
+            margin: 0.5rem 0 1rem;
+        }
+
+        .thankyou-message {
+            font-size: clamp(1.6rem, 6vw, 2.4rem);
+            background: #ffe2ec;
+            padding: 1.5rem 1.2rem;
+            border-radius: 50px;
+            margin: 1.8rem 0;
+            border: 3px dashed #ff88a8;
+            color: #ab3252;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .heart-row {
+            font-size: clamp(2rem, 8vw, 3.5rem);
+            margin: 1.2rem 0;
+            word-break: break-word;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.2rem 0.8rem;
+        }
+
         .back-link {
             display: inline-block;
-            margin-top: 1.5rem;
+            margin-top: 2rem;
+            font-size: clamp(1.3rem, 5vw, 1.8rem);
             color: #b14b62;
-            font-size: 1.3rem;
             text-decoration: none;
-            border-bottom: 2px dotted #ffa5b5;
+            border-bottom: 3px dotted #ffa5b5;
             cursor: pointer;
+            padding: 0.5rem 1rem;
+            background: transparent;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            font-weight: 500;
         }
-        
-        .funny-message {
-            font-size: 1.5rem;
-            color: #b13e55;
-            background: #ffe2e2;
-            border-radius: 60px;
-            padding: 1rem;
-            margin: 1rem 0;
-            display: none;
+
+        .back-link:active {
+            opacity: 0.7;
         }
-        
-        /* Loading spinner */
-        .spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid #ffffff;
-            border-radius: 50%;
-            border-top-color: #ff4d6d;
-            animation: spin 1s ease-in-out infinite;
-            margin-left: 10px;
+
+        /* setup note - subtle and mobile friendly */
+        .setup-hint {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(255, 240, 245, 0.9);
+            padding: 10px 16px;
+            border-radius: 40px;
+            font-size: 13px;
+            color: #a53858;
+            box-shadow: 0 4px 10px rgba(255, 120, 140, 0.3);
+            backdrop-filter: blur(2px);
+            border: 1px solid white;
+            z-index: 99;
+            max-width: 280px;
+            pointer-events: none;
         }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+
+        /* extra love for tiny screens */
+        @media (max-width: 420px) {
+            .card { padding: 1.5rem 1rem 2rem; }
+            .btn { min-width: 140px; font-size: 1.8rem; }
+            .subtitle { padding: 0.5rem 1.2rem; }
         }
-        
-        /* Mobile responsive */
-        @media (max-width: 500px) {
-            h1 { font-size: 2.5rem; }
-            .subtitle { font-size: 1.5rem; }
-            .btn { font-size: 1.8rem; min-width: 150px; }
-            .cat-emoji { font-size: 6rem; }
-        }
+
+        /* make sure nothing overflows */
+        img, svg, iframe { max-width: 100%; }
     </style>
 </head>
 <body>
-    <!-- Page 1: Question -->
-    <div id="questionPage" class="question-card">
-        <h1>💝 VALENTINE'S DAY 💝</h1>
-        <div class="subtitle">one special question...</div>
-        
-        <div class="button-group">
-            <button class="btn btn-yes" id="yesBtn">YES 💕</button>
-            <button class="btn btn-no" id="noBtn">no 🥺</button>
-        </div>
-        
-        <div id="funnyMessage" class="funny-message"></div>
-        
-        <div style="font-size: 1.2rem; color: #a5485e; margin-top: 2rem;">
-            ✨ click YES for a surprise ✨
-        </div>
-    </div>
-    
-    <!-- Page 2: Cat Celebration -->
-    <div id="catPage" class="cat-card">
-        <div class="cat-emoji">😻🎉</div>
-        <div class="success-message">YAY! You said YES! 🎊</div>
-        
-        <!-- Email Section - USES FORMSPREE (FREE, WORKS ON GITHUB) -->
-        <div class="email-section">
-            <div class="email-title">📧 Send me your answer!</div>
-            
-            <form id="emailForm" class="email-form">
-                <!-- IMPORTANT: Replace this with your Formspree endpoint -->
-                <input type="hidden" name="_subject" value="💘 Someone said YES to be your Valentine!">
-                <input type="hidden" name="_replyto" value="notification@valentine.com">
-                <input type="hidden" name="_next" value="https://your-site.com/thanks.html">
-                
-                <input type="text" name="name" class="form-input" placeholder="Your name" required>
-                <input type="email" name="email" class="form-input" placeholder="Your email (optional)" id="emailInput">
-                <textarea name="message" class="form-input" style="border-radius: 30px; min-height: 100px;" placeholder="Leave a sweet message...">I want to be your Valentine! 💖</textarea>
-                
-                <button type="submit" class="send-btn" id="submitBtn">
-                    <span id="btnText">Send My Answer 💌</span>
-                    <span id="spinner" class="spinner" style="display: none;"></span>
-                </button>
-            </form>
-            
-            <div id="formStatus" style="margin-top: 1rem; color: #b34e63; font-size: 1.1rem;"></div>
-            <div style="font-size: 1rem; margin-top: 1rem; color: #7a4b56;">
-                💡 Your message will be sent to me instantly!
-            </div>
-        </div>
-        
-        <div class="back-link" id="backToQuestion">← go back</div>
+    <!-- background hearts (decorative) -->
+    <div class="floating-hearts" aria-hidden="true">
+        <span style="left: 5%; animation-delay: 0s;">❤️</span>
+        <span style="left: 20%; animation-delay: 2s;">💖</span>
+        <span style="left: 40%; animation-delay: 4s;">💗</span>
+        <span style="left: 60%; animation-delay: 1s;">💘</span>
+        <span style="left: 75%; animation-delay: 3s;">💝</span>
+        <span style="left: 90%; animation-delay: 5s;">💞</span>
+        <span style="left: 15%; animation-delay: 6s;">💓</span>
+        <span style="left: 85%; animation-delay: 2.5s;">💕</span>
     </div>
 
-    
+    <!-- PAGE 1: Question -->
+    <div id="questionPage" class="card">
+        <h1>💌 VALENTINE'S DAY 🥰💋</h1>
+        <div class="subtitle">one special question...</div>
+
+        <div class="button-group">
+            <button class="btn btn-yes" id="yesBtn">YES 💖</button>
+            <button class="btn btn-no" id="noBtn">no 😊</button>
+        </div>
+
+        <div id="funnyMessage" class="funny-message"></div>
+
+        <div class="foot-note">
+            ✨ your answer means everything ✨
+        </div>
+    </div>
+
+    <!-- PAGE 2: Thank you (cat celebration, no email) -->
+    <div id="thankyouPage" class="card thankyou-card" style="display: none;">
+        <div class="cat-jump">😻💌</div>
+        <div class="thankyou-title">THANK YOU!</div>
+
+        <div class="thankyou-message">
+            💖 You said YES! 💖<br>
+            <span style="font-size: 0.9em; display: block; margin-top: 0.8rem;">
+                you just made my day
+            </span>
+        </div>
+
+        <div class="heart-row">
+            <span>💗</span> <span>💖</span> <span>💘</span> <span>💕</span> <span>💞</span> <span>💓</span>
+        </div>
+
+        <div style="font-size: clamp(1.4rem, 5vw, 2rem); color: #b83b5e; margin: 1rem 0;">
+            can't wait to celebrate! 🎉
+        </div>
+
+        <div class="back-link" id="backToQuestion">
+            ← start over
+        </div>
+    </div>
+
+    <!-- minimal note: ready for github pages, no email setup needed -->
+    <div class="setup-hint">
+        💕 pure love &hearts; ready for GitHub
+    </div>
+
+    <script>
+        (function() {
+            // ----- get elements -----
+            const questionPage = document.getElementById('questionPage');
+            const thankyouPage = document.getElementById('thankyouPage');
+            const yesBtn = document.getElementById('yesBtn');
+            const noBtn = document.getElementById('noBtn');
+            const funnyDiv = document.getElementById('funnyMessage');
+            const backLink = document.getElementById('backToQuestion');
+
+            // ----- yes button : show thank you page -----
+            yesBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                // switch view
+                questionPage.style.display = 'none';
+                thankyouPage.style.display = 'block';
+                // optional tiny confetti effect (hearts)
+                for (let i = 0; i < 8; i++) {
+                    launchHeart();
+                }
+            });
+
+            // ----- no button : funny rotating messages, stays on page -----
+            let noClickCount = 0;
+            const noMessages = [
+                "🙈 are you sure? try YES!",
+                "💔 my heart says YES!",
+                "😿 kitty is getting sad...",
+                "✨ magic word: YES!",
+                "💝 pretty please?",
+                "🎀 the YES button is lonely",
+                "🐱 happy cat wants YES",
+                "💘 don't break my heart"
+            ];
+
+            noBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                noClickCount++;
+                if (noClickCount >= 4) {
+                    funnyDiv.innerHTML = "⭐ okay okay... i know you mean YES! ⭐";
+                    noClickCount = 0;
+                } else {
+                    funnyDiv.innerHTML = noMessages[Math.floor(Math.random() * noMessages.length)];
+                }
+                funnyDiv.style.display = 'block';
+
+                // subtle shake animation
+                noBtn.style.transform = 'translateX(4px)';
+                setTimeout(() => noBtn.style.transform = '', 100);
+            });
+
+            // ----- back link : return to question -----
+            backLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                thankyouPage.style.display = 'none';
+                questionPage.style.display = 'block';
+                funnyDiv.style.display = 'none';
+                noClickCount = 0;
+            });
+
+            // ----- helper to launch floating hearts (just for fun) -----
+            function launchHeart() {
+                const heart = document.createElement('span');
+                heart.innerHTML = ['💖','💗','💘','💝','❤️'][Math.floor(Math.random() * 5)];
+                heart.style.position = 'fixed';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.bottom = '0';
+                heart.style.fontSize = (Math.random() * 2 + 1.8) + 'rem';
+                heart.style.pointerEvents = 'none';
+                heart.style.zIndex = '9999';
+                heart.style.animation = 'floatUp 3s ease-out forwards';
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 3000);
             }
-            
-            // IMPORTANT NOTE FOR USER
-            console.log('🔴 REMEMBER: You need to:');
-            console.log('1. Go to https://formspree.io/ and sign up (free)');
-            console.log('2. Create a new form and get your endpoint');
-            console.log('3. Replace FORMSPREE_ENDPOINT with your actual endpoint');
-            console.log('4. Also replace the email in the message below');
+
+            // add floating animation for celebration hearts
+            const styleSheet = document.createElement("style");
+            styleSheet.textContent = `
+                @keyframes floatUp {
+                    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+                    100% { transform: translateY(-90vh) rotate(400deg); opacity: 0; }
+                }
+            `;
+            document.head.appendChild(styleSheet);
+
+            // ensure no error logs – mobile friendly
         })();
     </script>
-    
-    <!-- Instructions for setup -->
-    <div style="position: fixed; bottom: 10px; right: 10px; background: white; padding: 10px; border-radius: 10px; font-size: 12px; max-width: 250px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 1000;">
-        <strong>📋 Setup Instructions:</strong>
-        <ol style="margin-top: 5px; padding-left: 20px;">
-            <li>Go to <a href="https://formspree.io/" target="_blank">Formspree</a> (free)</li>
-            <li>Sign up and create a new form</li>
-            <li>Copy your form endpoint</li>
-            <li>Replace the FORMSPREE_ENDPOINT in the code</li>
-            <li>Upload to GitHub - it will work!</li>
-        </ol>
-    </div>
+
+    <!-- 
+        ==============================================================
+        GITHUB PAGES READY – no email, no external dependencies.
+        All text, buttons and animations are fully responsive.
+        Simply upload index.html to any repo and enable pages.
+        ==============================================================
+    -->
 </body>
 </html>
